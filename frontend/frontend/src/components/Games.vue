@@ -55,22 +55,23 @@
 
     <!--first model-->
     <b-modal ref="addGameModal" id="game-modal" title="Add a new game" hide-backdrop hide-footer>
-    <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-      <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
-        <b-form-input id="form-title-input" type="text" v-model="addGameForm.title" placeholder="Enter game" required></b-form-input>
-      </b-form-group>
+        <!--<b-form @submit="onSubmit" @reset="onReset" class="w-100">
+          <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
+            <b-form-input id="form-title-input" type="text" v-model="addGameForm.title" placeholder="Enter game" required></b-form-input>
+          </b-form-group>
 
-      <b-form-group id="form-genre-group" label="Genre:" label-for="form-genre-input">
-        <b-form-input id="form-genre-input" type="text" v-model="addGameForm.genre" placeholder="Enter genre" required></b-form-input>
-      </b-form-group>
+          <b-form-group id="form-genre-group" label="Genre:" label-for="form-genre-input">
+            <b-form-input id="form-genre-input" type="text" v-model="addGameForm.genre" placeholder="Enter genre" required></b-form-input>
+          </b-form-group>
 
-      <b-form-group id="form-played-group" label="Played:" label-for="form-played-input">
-        <b-form-checkbox v-model="addGameForm.played">Played</b-form-checkbox>
-      </b-form-group>
+          <b-form-group id="form-played-group" label="Played:" label-for="form-played-input">
+            <b-form-checkbox v-model="addGameForm.played">Played</b-form-checkbox>
+          </b-form-group>
 
-      <b-button variant="outline-info" type="submit">Submit</b-button>
-      <b-button variant="outline-danger" type="reset">Reset</b-button>
-    </b-form>
+          <b-button variant="outline-info" type="submit">Submit</b-button>
+          <b-button variant="outline-danger" type="reset">Reset</b-button>
+        </b-form>-->
+        uhuibilbhi
   </b-modal>
 
 
