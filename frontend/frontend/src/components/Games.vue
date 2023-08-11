@@ -54,8 +54,8 @@
     </div>
 
     <!--first model-->
-    <b-modal ref="addGameModal" id="game-modal" title="Add a new game" hide-backdrop hide-footer>
-        <!--<b-form @submit="onSubmit" @reset="onReset" class="w-100">
+    <b-modal  v-if="displayAddForm()" ref="addGameModal" id="game-modal" title="Add a new game" hide-backdrop hide-footer>
+        <!--<b-form @submit="onS  ubmit" @reset="onReset" class="w-100">
           <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
             <b-form-input id="form-title-input" type="text" v-model="addGameForm.title" placeholder="Enter game" required></b-form-input>
           </b-form-group>
