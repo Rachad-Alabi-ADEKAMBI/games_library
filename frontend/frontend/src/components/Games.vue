@@ -54,7 +54,8 @@
     </div>
 
     <!--first model-->
-    <b-modal  v-if="displayAddForm()" ref="addGameModal" id="game-modal" title="Add a new game" hide-backdrop hide-footer>
+    <b-modal  v-if="showAddForm" ref="addGameModal" id="game-modal"
+    title="Add a new game" hide-backdrop hide-footer>
         <!--<b-form @submit="onS  ubmit" @reset="onReset" class="w-100">
           <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
             <b-form-input id="form-title-input" type="text" v-model="addGameForm.title" placeholder="Enter game" required></b-form-input>
@@ -94,7 +95,8 @@
         addGameForm: {
             title: '',
             genre: '',
-            played: []
+            played: [],
+            showAddForm: false
         },
         games: []
       };
@@ -143,6 +145,12 @@
         this.addGame(payload);
         this.initForm;
       },
+      displayAddForm(){
+        this.showAddForm = true;
+      },
+      closeAddForm(){
+        this.showAddForm = false;
+      }
     },
     created() {
       this.getGames();
