@@ -8,6 +8,68 @@
           crossorigin="anonymous"
           referrerpolicy="no-referrer"
         />
+        <div class="row" v-if="showAddForm">
+          <div  class="col-sm-12 col-md-6 p-3 mt-3 mx-auto" role="dialog">
+                            <div class="modal-dialog card">
+
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3  class="modal-title text mx-auto">
+                                                Add new book
+                                            </h3>
+                                        </div>
+
+                                        <div class="model-body">
+                                                  <form action="" method="">
+                                                    <div class="row">
+                                                         <div class="col-sm-12 col-md-10 mx-auto text-left left ">
+                                                          <label for="" class="text text-left mb-1">Enter game: </label> <br>
+                                                          <input type="text"  v-model="addGameForm.title"  required>
+                                                         </div>
+                                                  </div>
+
+                                                  <div class="row mt-2">
+                                                         <div class="col-sm-12 col-md-10 mx-auto text-left left ">
+                                                          <label for="" class="text text-left mb-1">Enter genre: </label> <br>
+                                                          <input type="text"  v-model="addGameForm.genre"
+                                                           required>
+                                                         </div>
+                                                  </div>
+
+                                                  <div class="row mt-2">
+                                                         <div class="col-sm-12 col-md-12 mx-left text-left">
+                                                          <label for="" class="text text-left mb-1">Played: </label> <br>
+                                                          <select  v-model="addGameForm.played" id="">
+                                                              <option value="">Please select</option>
+                                                              <option value="Yes">Yes</option>
+                                                              <option value="No">No</option>
+                                                          </select>
+                                                         </div>
+                                                  </div>
+
+                                                  <div class="row mt-3">
+                                                      <div class="col-4 mx-auto text-center">
+                                                           <button class="btn btn-success mx-auto"  @click="" type="submit">Submit</button>
+                                                      </div>
+
+                                                      <div class="col-4 mx-auto text-center mx-auto">
+                                                        <button class="btn btn-warning" @click="" type="submit">Reset</button>
+                                                      </div>
+                                                  </div>
+                                                  </form>
+                                        </div>
+
+                                        <div class="modal-footer mt-3 m-2">
+                                            <button class="btn btn-secondary" data-dismiss="modal"  @click="closeAddForm()" >
+                                                Close
+                                            </button>
+                                        </div>
+                                </div>
+
+                            </div>
+              </div>
+        </div>
+
         <div class="row">
           <div class="col-sm-12">
             <h1 class="text text-center bg-primary text-white" style="border-radius: 10px;">Games library</h1>
@@ -15,10 +77,14 @@
             <br />
             <!--alert msg-->
 
-            <button type="button" class="btn btn-success btn-sm" v-b-modal.game-modal>
+            <button type="button"  data-toggle="modal"
+            data-target="myModal"
+             class="btn btn-success btn-sm" @click="displayAddForm()">
               Add Game
             </button>
             <br /><br />
+
+
             <table class="table table-hover">
               <!--table head-->
               <thead>
@@ -39,46 +105,20 @@
                   </td>
                   <td>
                     <div class="btn-group" role="group">
-                      <b-button class="btn btn-info btn-sm">Update</b-button>
-                      <b-button class="btn btn-danger btn-sm">Delete</b-button>
+                      <button class="btn btn-info btn-sm">Update</button>
+                      <button class="btn btn-danger btn-sm">Delete</button>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-
             <footer class="footer bg-primary text-white text-center" style="border-radius: 10px;" >Copyright  &Copy;. all right reserved 2023</footer>
           </div>
         </div>
       </div>
     </div>
 
-    <!--first model-->
-    <b-modal  v-if="showAddForm" ref="addGameModal" id="game-modal"
-    title="Add a new game" hide-backdrop hide-footer>
-        <div class="close" @click="closeAddForm()">
-          close
-        </div>
-        <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-          <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
-            <b-form-input id="form-title-input" type="text" v-model="addGameForm.title" placeholder="Enter game" required></b-form-input>
-          </b-form-group>
-
-          <b-form-group id="form-genre-group" label="Genre:" label-for="form-genre-input">
-            <b-form-input id="form-genre-input" type="text" v-model="addGameForm.genre" placeholder="Enter genre" required></b-form-input>
-          </b-form-group>
-
-          <b-form-group id="form-played-group" label="Played:" label-for="form-played-input">
-            <b-form-checkbox v-model="addGameForm.played">Played</b-form-checkbox>
-          </b-form-group>
-
-          <b-button variant="outline-info" type="submit">Submit</b-button>
-          <b-button variant="outline-danger" type="reset">Reset</b-button>
-        </b-form>
-  </b-modal>
-
-
-
+                 <!--add-->
 
 
 
@@ -98,18 +138,25 @@
             title: '',
             genre: '',
             played: [],
-            showAddForm: false
+
         },
-        games: []
+        games: [],
+        showAddForm: true
       };
     },
     methods: {
+      displayAddForm(){
+        this.showAddForm = true;
+      },
+      closeAddForm(){
+        this.showAddForm = false;
+      },
       getGames() {
         const path = 'http://localhost:5000/games';
         axios
           .get(path)
           .then((res) => {
-            console.log(res.data);
+           // console.log(res.data);
             this.games = res.data.games; // Access the 'games' array inside the response data
           })
           .catch((err) => {
@@ -147,12 +194,6 @@
         this.addGame(payload);
         this.initForm;
       },
-      displayAddForm(){
-        this.showAddForm = true;
-      },
-      closeAddForm(){
-        this.showAddForm = false;
-      }
     },
     created() {
       this.getGames();
