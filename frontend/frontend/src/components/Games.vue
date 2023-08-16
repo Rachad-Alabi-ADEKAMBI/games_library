@@ -70,6 +70,68 @@
               </div>
         </div>
 
+        <div class="row" v-if="showEditForm">
+          <div  class="col-sm-12 col-md-6 p-3 mt-3 mx-auto" role="dialog">
+                            <div class="modal-dialog card">
+
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3  class="modal-title text mx-auto">
+                                                Update
+                                            </h3>
+                                        </div>
+
+                                        <div class="model-body">
+                                                  <form action="" method="">
+                                                    <div class="row">
+                                                         <div class="col-sm-12 col-md-10 mx-auto text-left left ">
+                                                          <label for="" class="text text-left mb-1">Enter game: </label> <br>
+                                                          <input type="text"  v-model="addGameForm.title"  required>
+                                                         </div>
+                                                  </div>
+
+                                                  <div class="row mt-2">
+                                                         <div class="col-sm-12 col-md-10 mx-auto text-left left ">
+                                                          <label for="" class="text text-left mb-1">Enter genre: </label> <br>
+                                                          <input type="text"  v-model="addGameForm.genre"
+                                                           required>
+                                                         </div>
+                                                  </div>
+
+                                                  <div class="row mt-2">
+                                                         <div class="col-sm-12 col-md-12 mx-left text-left">
+                                                          <label for="" class="text text-left mb-1">Played: </label> <br>
+                                                          <select  v-model="addGameForm.played" id="">
+                                                              <option value="">Please select</option>
+                                                              <option value="Yes">Yes</option>
+                                                              <option value="No">No</option>
+                                                          </select>
+                                                         </div>
+                                                  </div>
+
+                                                  <div class="row mt-3">
+                                                      <div class="col-4 mx-auto text-center">
+                                                           <button class="btn btn-success mx-auto"  @click="" type="submit">Submit</button>
+                                                      </div>
+
+                                                      <div class="col-4 mx-auto text-center mx-auto">
+                                                        <button class="btn btn-warning" @click="" type="submit">Reset</button>
+                                                      </div>
+                                                  </div>
+                                                  </form>
+                                        </div>
+
+                                        <div class="modal-footer mt-3 m-2">
+                                            <button class="btn btn-secondary" data-dismiss="modal"  @click="closeAddForm()" >
+                                                Close
+                                            </button>
+                                        </div>
+                                </div>
+
+                            </div>
+              </div>
+        </div>
+
         <div class="row">
           <div class="col-sm-12">
             <h1 class="text text-center bg-primary text-white" style="border-radius: 10px;">Games library</h1>
@@ -141,7 +203,8 @@
 
         },
         games: [],
-        showAddForm: true
+        showAddForm: true,
+        showEditForm: false
       };
     },
     methods: {
