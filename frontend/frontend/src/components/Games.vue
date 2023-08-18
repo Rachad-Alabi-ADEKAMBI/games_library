@@ -248,15 +248,23 @@
         showDeleteForm: false,
         games: [],
         showAddForm: true,
-        showEditForm: false
+        showUpdateForm: false
       };
     },
     methods: {
       displayAddForm(){
         this.showAddForm = true;
+        thid.showUpdateForm = false;
       },
       closeAddForm(){
         this.showAddForm = false;
+      },
+      displayDeleteForm(){
+        this.DeleteForm = true;
+        this.showUpdateForm = false;
+      },
+      closeDeleteForm(){
+        this.DeleteForm = false;
       },
       getGames() {
         const path = 'http://localhost:5000/games';
