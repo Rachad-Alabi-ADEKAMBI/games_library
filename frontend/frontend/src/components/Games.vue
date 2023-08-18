@@ -70,7 +70,7 @@
               </div>
         </div>
 
-        <div class="row" v-if="showEditForm">
+        <div class="row" v-if="showUpdateForm">
           <div  class="col-sm-12 col-md-6 p-3 mt-3 mx-auto" role="dialog">
                             <div class="modal-dialog card">
 
@@ -111,7 +111,7 @@
 
                                                   <div class="row mt-3">
                                                       <div class="col-4 mx-auto text-center">
-                                                           <button class="btn btn-success mx-auto"  @click="" type="submit">Submit</button>
+                                                           <button class="btn btn-success mx-auto"  @click="" type="submit">Update</button>
                                                       </div>
 
                                                       <div class="col-4 mx-auto text-center mx-auto">
@@ -280,6 +280,18 @@
       },
       addGame(payload){
         const path = 'http://localhost:5000/games';
+        axios
+          .get(path, payload)
+          .then((res) => {
+                this.getGames();
+          })
+          .catch((err) => {
+            console.error(err);
+          this.getGames();
+          });
+      },
+        updateGame(payload){
+        const path = '';
         axios
           .get(path, payload)
           .then((res) => {
