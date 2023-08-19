@@ -148,7 +148,11 @@
                                                     <div class="row">
                                                          <div class="col-sm-12 col-md-10 mx-auto text-left left ">
                                                           <label for="" class="text text-left mb-1">Delete game: </label> <br>
-                                                          <select name="" v-model="" id=""></select>
+                                                            <select name="" v-model="deleteGame" id="">
+                                                               <option value="">Please <select name="" id=""></select></option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="No">No</option>
+                                                            </select>
                                                          </div>
                                                   </div>
 

@@ -34,11 +34,16 @@ GAMES = [
 ]
 
 
-@app.route('/games', methods=['GET'])
+@app.route('/games', methods=['GET', 'POST'])
 def all_games():
-    return jsonify({
-        'games': GAMES,
-        'status': 'success'
+    response_object = {'status': 'success'}
+    if request.method == 'POST'
+    post_data = request.get_json()
+    GAMES.append({
+        'title': post_data.get('title'),
+        'genre': post_data.get('genre'),
+        'played': post_data.get('played'),
+        response.object['message'] = 'Game added !'
     })
 
 
