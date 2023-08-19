@@ -1,6 +1,9 @@
 <template>
-    <div class="jumbotron vertical-center bg-light">
-      <div class="container">
+    <div class="jumbotron vertical-center bg-light mt-3">
+
+    </div>
+
+    <div class="container">
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.1/cerulean/bootstrap.min.css"
@@ -8,6 +11,10 @@
           crossorigin="anonymous"
           referrerpolicy="no-referrer"
         />
+
+        <div class="row">
+          <div class="col-sm-12 col-md-" v-if="success" ></div>
+        </div>
         <div class="row" v-if="showAddForm">
           <div  class="col-sm-12 col-md-6 p-3 mt-3 mx-auto" role="dialog">
                             <div class="modal-dialog card">
@@ -20,7 +27,7 @@
                                         </div>
 
                                         <div class="model-body">
-                                                  <form action="" method="">
+                                                  <form action="" method="POST">
                                                     <div class="row">
                                                          <div class="col-sm-12 col-md-10 mx-auto text-left left ">
                                                           <label for="" class="text text-left mb-1">Enter game: </label> <br>
@@ -38,18 +45,15 @@
 
                                                   <div class="row mt-2">
                                                          <div class="col-sm-12 col-md-12 mx-left text-left">
-                                                          <label for="" class="text text-left mb-1">Played: </label> <br>
-                                                          <select  v-model="addGameForm.played" id="">
-                                                              <option value="">Please select</option>
-                                                              <option value="Yes">Yes</option>
-                                                              <option value="No">No</option>
-                                                          </select>
+                                                          <label for="" class="text text-left mb-1">Played: </label>
+                                                          <input type="checkbox" v-model="addGameForm.played"  >
                                                          </div>
                                                   </div>
 
                                                   <div class="row mt-3">
                                                       <div class="col-4 mx-auto text-center">
-                                                           <button class="btn btn-success mx-auto"  @click="" type="submit">Submit</button>
+                                                           <button class="btn btn-success mx-auto"  @click="submit()"
+                                                            type="submit">Submit</button>
                                                       </div>
 
                                                       <div class="col-4 mx-auto text-center mx-auto">
@@ -179,7 +183,7 @@
               </div>
         </div>
 
-        <div class="row">
+        <div class="row"  v-if="showGames">
           <div class="col-sm-12">
             <h1 class="text text-center bg-primary text-white" style="border-radius: 10px;">Games library</h1>
             <hr />
@@ -221,11 +225,15 @@
                 </tr>
               </tbody>
             </table>
-            <footer class="footer bg-primary text-white text-center" style="border-radius: 10px;" >Copyright  &Copy;. all right reserved 2023</footer>
-          </div>
+           </div>
+        </div>
+
+        <div class="row mt-5">
+          <footer class="footer bg-primary text-white text-center"
+          style="border-radius: 10px;" >Copyright  & Copy; all right reserved 2023</footer>
+
         </div>
       </div>
-    </div>
 
                  <!--add-->
 
@@ -251,27 +259,32 @@
         },
         showDeleteForm: false,
         games: [],
-        showAddForm: true,
+        showAddForm: false,
         showUpdateForm: false
       };
     },
     methods: {
       displayAddForm(){
         this.showAddForm = true;
-        thid.showUpdateForm = false;
+        this.showUpdateForm = false;
+        this.showGames = false;
       },
       closeAddForm(){
         this.showAddForm = false;
+        this.showGames = true;
       },
       displayDeleteForm(){
-        this.DeleteForm = true;
+        this.showDeleteForm = true;
         this.showUpdateForm = false;
+        this.showGames = false;
       },
       closeDeleteForm(){
-        this.DeleteForm = false;
+        this.showDeleteForm = false;
+        this.showGames = true;
       },
       getGames() {
         const path = 'http://localhost:5000/games';
+        this.showGames = true;
         axios
           .get(path)
           .then((res) => {
@@ -294,36 +307,22 @@
           this.getGames();
           });
       },
-        updateGame(payload){
-        const path = '';
-        axios
-          .get(path, payload)
-          .then((res) => {
-                this.getGames();
-          })
-          .catch((err) => {
-            console.error(err);
-          this.getGames();
-          });
-      },
       initForm(){
-            this.addGameForm.title ='',
-            this.addGameForm.genre ='',
-            this.addGameForm.played = []
+        this.addGameForm.title = '',
+        this.addGameForm.genre = ''
+        this.addGameForm.played = []
       },
-      onsubmit(e){
-        e.preventDefault();
-        this.$refs.addGameModal.hide();
-        let played = false;
-        if (this.addGameForm.played[0]) payload = true;
-        const payload = {
-            title: this.addGameForm.title,
-            genre: this.addGameForm.genre,
+      submit(){
+          e.preventDefault();
+          this.showAddForm = false;
+          let played = false;
+          if(this.addGameForm.played[0]) played = true;
+          const payload = {
+            title : this.addGameForm.title,
+            genre : this.addGameForm.genre,
             played,
-
-        };
-        this.addGame(payload);
-        this.initForm;
+          };
+          this.addGame(payload)
       },
     },
     created() {
@@ -331,3 +330,15 @@
     }
   }
   </script>
+
+<style>
+      .container{
+        position: relative;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .table{
+        bottom: 0;
+      }
+</style>
