@@ -231,14 +231,8 @@
         <div class="row mt-5">
           <footer class="footer bg-primary text-white text-center"
           style="border-radius: 10px;" >Copyright  & Copy; all right reserved 2023</footer>
-
         </div>
       </div>
-
-                 <!--add-->
-
-
-
   </template>
 
 
@@ -281,6 +275,11 @@
       closeDeleteForm(){
         this.showDeleteForm = false;
         this.showGames = true;
+      },
+      displayUpdateForm(){
+        this.showDeleteForm = false;
+        this.showUpdateForm = false;
+        this.showGames = false;
       },
       getGames() {
         const path = 'http://localhost:5000/games';
