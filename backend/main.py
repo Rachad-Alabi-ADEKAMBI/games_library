@@ -52,6 +52,24 @@ def all_games():
     return jsonify(response_object)
 
 
+@app.route('/deleteGame', methods=['POST'])
+def delete():
+    response_object = {'status': 'success'}
+
+    if request.method == 'POST':
+        post_data = request.get_json()
+        GAMES.append({
+            'title': post_data.get('title'),
+            'genre': post_data.get('genre'),
+            'played': post_data.get('played')
+        })
+        response_object['message'] = 'Game deleted!'
+    else:
+        response_object['games'] = GAMES
+
+    return jsonify(response_object)
+
+
 def all_games():
     if request.method == 'POST':
         post_data = request.get_json()
