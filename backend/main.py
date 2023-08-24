@@ -34,6 +34,7 @@ GAMES = [
 ]
 
 
+#display all
 @app.route('/games', methods=['GET', 'POST'])
 def all_games():
     response_object = {'status': 'success'}
@@ -52,6 +53,7 @@ def all_games():
     return jsonify(response_object)
 
 
+#delete
 @app.route('/deleteGame', methods=['POST'])
 def delete():
     response_object = {'status': 'success'}
@@ -70,18 +72,35 @@ def delete():
     return jsonify(response_object)
 
 
-def all_games():
+#update
+@app.route('/updateGame', methods=['POST'])
+def delete():
+    response_object = {'status': 'success'}
+
     if request.method == 'POST':
         post_data = request.get_json()
-        new_game = {
+        GAMES.append({
             'title': post_data.get('title'),
             'genre': post_data.get('genre'),
-            'played': post_data.get('played', False)  # Default to False if not provided
+            'played': post_data.get('played')
+        })
+        response_object['message'] = 'Game updated!'
+    else:
+        response_object['games'] = GAMES
+
+    return jsonify(response_object)
+
+#add
+@app.route('/add', methods = ['POST'])
+def add():
+    if request.method == 'POST':
+        new_game = {
+             'name' = request.form['name'],
+             'genre' = request.form['genre'],
+            'played'= request.form['played', False ]  # Default to False if not provided
         }
         GAMES.append(new_game)
         response_object = {'status': 'success', 'message': 'Game Added !'}
-    else:  # GET request
-        response_object = {'status': 'success', 'games': GAMES}
 
     return jsonify(response_object)
 
