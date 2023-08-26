@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+
 @app.route('/', methods=['GET'])
 def greetings():
     return "Hello, world!"
@@ -17,24 +18,24 @@ def shark():
 
 GAMES = [
     {
-        'title':'2k21',
+        'title': '2k21',
         'genre': 'sports',
         'played': 'True',
     },
     {
-        'title':'COD',
+        'title': 'COD',
         'genre': 'FPS',
         'played': 'True',
     },
     {
-        'title':'PUBG',
+        'title': 'PUBG',
         'genre': 'FPS',
         'played': 'False',
     },
 ]
 
 
-#display all
+# display all
 @app.route('/games', methods=['GET', 'POST'])
 def all_games():
     response_object = {'status': 'success'}
@@ -53,6 +54,7 @@ def all_games():
     return jsonify(response_object)
 
 
+# add
 def insert():
     response_object = {'status': 'success'}
 
@@ -68,6 +70,8 @@ def insert():
         response_object['games'] = GAMES
 
     return jsonify(response_object)
+
+# update
 
 
 if __name__ == "__main__":
