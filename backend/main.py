@@ -75,6 +75,7 @@ def insert():
 def update ():
     response_object = {'status': 'success'}
 
+#delete
 
 if __name__ == "__main__":
     app.run(debug=True)
