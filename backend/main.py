@@ -76,6 +76,7 @@ def update ():
     response_object = {'status': 'success'}
 
 #delete
+def delete ():
 
 if __name__ == "__main__":
     app.run(debug=True)
