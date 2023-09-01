@@ -75,8 +75,9 @@ def insert():
 
 
 def update():
+    if request.method == 'POST':
 
-    # delete
+        # delete
 
 
 def delete():
