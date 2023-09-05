@@ -72,8 +72,6 @@ def insert():
     return jsonify(response_object)
 
 # update
-
-
 def update():
     if request.method == 'POST':
 
@@ -82,6 +80,7 @@ def update():
 
 def delete():
     response_object = {'status': 'success'}
+     post_data = request.get_json()
 
 
 if __name__ == "__main__":
