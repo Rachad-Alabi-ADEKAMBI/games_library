@@ -1,87 +1,40 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
+# Enable CORS for all routes
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# Database connection
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'games_library'
+
+# Initialize MySQL
+mysql = MySQL(app)
 
 @app.route('/', methods=['GET'])
 def greetings():
     return "Hello, world!"
 
-
 @app.route('/shark', methods=['GET'])
 def shark():
     return "Shark!"
 
-
-GAMES = [
-    {
-        'title': '2k21',
-        'genre': 'sports',
-        'played': 'True',
-    },
-    {
-        'title': 'COD',
-        'genre': 'FPS',
-        'played': 'True',
-    },
-    {
-        'title': 'PUBG',
-        'genre': 'FPS',
-        'played': 'False',
-    },
-]
-
-
-# display all
-@app.route('/games', methods=['GET', 'POST'])
+# Display all games from the MySQL database
+@app.route('/games', methods=['GET'])
 def all_games():
     response_object = {'status': 'success'}
-
-    if request.method == 'POST':
-        post_data = request.get_json()
-        GAMES.append({
-            'title': post_data.get('title'),
-            'genre': post_data.get('genre'),
-            'played': post_data.get('played')
-        })
-        response_object['message'] = 'Game added!'
-    else:
-        response_object['games'] = GAMES
-
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM games ORDER BY id DESC")
+    data = cur.fetchall()
+    cur.close()
+    response_object['games'] = data
     return jsonify(response_object)
 
 
-# add
-def insert():
-    response_object = {'status': 'success'}
-
-    if request.method == 'POST':
-        post_data = request.get_json()
-        GAMES.append({
-            'title': post_data.get('title'),
-            'genre': post_data.get('genre'),
-            'played': post_data.get('played')
-        })
-        response_object['message'] = 'Game added!'
-    else:
-        response_object['games'] = GAMES
-
-    return jsonify(response_object)
-
-# update
-def update():
-    if request.method == 'POST':
-
-        # delete
-
-
-def delete():
-    response_object = {'status': 'success'}
-     post_data = request.get_json()
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
