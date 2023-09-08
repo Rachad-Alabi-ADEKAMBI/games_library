@@ -36,12 +36,11 @@ def all_games():
     return jsonify(response_object)
 
 
-# ad
 @app.route('/games', methods=['GET'])
 def insert():
     response_object = {'status': 'success'}
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM games ORDER BY id DESC")
+    cur.execute("INSERT IN games")
     data = cur.fetchall()
     cur.close()
     response_object['games'] = data
