@@ -41,8 +41,6 @@ def insert():
     response_object = {'status': 'success'}
     cur = mysql.connection.cursor()
     cur.execute("INSERT IN games")
-    data = cur.fetchall()
-    cur.close()
     response_object['games'] = data
     return jsonify(response_object)
 
