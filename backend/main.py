@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Enable CORS for all routes
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Database connection
+# Database connection configuration
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
@@ -27,23 +27,16 @@ def shark():
 # Display all games from the MySQL database
 @app.route('/games', methods=['GET'])
 def all_games():
-    response_object = {'status': 'success'}
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM games ORDER BY id DESC")
-    data = cur.fetchall()
-    cur.close()
-    response_object['games'] = data
-    return jsonify(response_object)
-
-
-@app.route('/games', methods=['GET'])
-def insert():
-    response_object = {'status': 'success'}
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT IN games")
-    response_object['games'] = data
-    return jsonify(response_object)
-
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM games ORDER BY id DESC")
+        data = cur.fetchall()
+        cur.close()
+        response_object = {'status': 'success', 'games': data}
+        return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error', 'message': str(e)}
+        return jsonify(response_object), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
